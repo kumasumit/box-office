@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { apiGet } from '../../api-config/config';
 import Cast from '../details/Cast';
 import DetailMaindata from '../details/DetailMaindata';
+import { InfoBlock, ShowPageWrapper } from '../details/Detailstyled';
 import Info from '../details/Info';
 import Seasons from '../details/Seasons';
 
@@ -65,7 +66,7 @@ const Detail = () => {
   console.log('detail', detail);
 
   return (
-    <div>
+    <ShowPageWrapper>
       <DetailMaindata
         image={detail.image}
         name={detail.name}
@@ -74,23 +75,23 @@ const Detail = () => {
         tags={detail.genres}
       />
 
-      <div>
+      <InfoBlock>
         <h2>Info:</h2>
         <Info
           status={detail.status}
           network={detail.network}
           premiered={detail.premiered}
         />
-      </div>
-      <div>
+      </InfoBlock>
+      <InfoBlock>
         <h2>Seasons:</h2>
         <Seasons seasons={detail._embedded.seasons} />
-      </div>
-      <div>
+      </InfoBlock>
+      <InfoBlock>
         <h2>Cast:</h2>
         <Cast cast={detail._embedded.cast} />
-      </div>
-    </div>
+      </InfoBlock>
+    </ShowPageWrapper>
   );
 };
 
