@@ -1,4 +1,5 @@
-import { userReducer, useEffect } from 'react';
+import { useReducer, useEffect } from 'react';
+
 function usePersistedReducer(reducer, initialState, key) {
   const [state, dispatch] = useReducer(reducer, initialState, intial => {
     const persisted = localStorage.getItem(key);
@@ -8,9 +9,6 @@ function usePersistedReducer(reducer, initialState, key) {
   //   to sync with local Storage
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
-    return () => {
-      cleanup;
-    };
   }, [state, key]);
 
   return [state, dispatch];
