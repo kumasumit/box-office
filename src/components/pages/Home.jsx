@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { apiGet } from '../../api-config/config';
 import { useLastQuery } from '../../custom-hooks/customhooks';
 import ActorGrid from '../actor/ActorGrid';
+import CustomRadio from '../CustomRadio';
 import MainPageLayout from '../MainPageLayout';
 import ShowGrid from '../show/ShowGrid';
+import {
+  RadioInputsWrapper,
+  SearchButtonWrapper,
+  SearchInput,
+} from './Home.styled';
 
 const Home = () => {
   const [input, setInput] = useLastQuery();
@@ -45,38 +51,39 @@ const Home = () => {
 
   return (
     <MainPageLayout>
-      <input
+      <SearchInput
         type="text"
         placeholder="Search for something"
         onKeyDown={onKeyDown}
         onChange={onInputChange}
         value={input}
       />
-      <div>
-        <label htmlFor="shows-search">
-          Shows
-          <input
-            type="radio"
+      <RadioInputsWrapper>
+        <div>
+          <CustomRadio
+            label="Shows"
             id="shows-search"
             value="shows"
             checked={isShowsSearch}
             onChange={onRadioChange}
           />
-        </label>
-        <label htmlFor="actors-search">
-          Actors
-          <input
-            type="radio"
+        </div>
+
+        <div>
+          <CustomRadio
+            label="Actors"
             id="actors-search"
             value="people"
             checked={!isShowsSearch}
             onChange={onRadioChange}
           />
-        </label>
-      </div>
-      <button type="button" onClick={onSearch}>
-        Search
-      </button>
+        </div>
+      </RadioInputsWrapper>
+      <SearchButtonWrapper>
+        <button type="button" onClick={onSearch}>
+          Search
+        </button>
+      </SearchButtonWrapper>
       {renderResults()}
     </MainPageLayout>
   );
