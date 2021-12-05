@@ -5,6 +5,14 @@ import Detail from './components/pages/Detail';
 import Home from './components/pages/Home';
 import Starred from './components/pages/Starred';
 
+// const theme = {
+//   mainColors: {
+//     blue: '#2400ff',
+//     gray: '#c6c6c6',
+//     dark: '#353535',
+//   },
+// };
+
 function App() {
   return (
     <Switch>

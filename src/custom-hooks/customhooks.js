@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useState } from 'react';
+import { apiGet } from '../api-config/config';
 
 function usePersistedReducer(reducer, initialState, key) {
   const [state, dispatch] = useReducer(reducer, initialState, intial => {
@@ -42,4 +43,49 @@ export function useLastQuery(key = 'lastQuery') {
   };
 
   return [input, setPersistedInput];
+}
+
+// detail.jsx page and its core functions.
+
+const reducer = (prevState, action) => {
+  switch (action.type) {
+    case 'FETCH_SUCCESS':
+      return { ...prevState, detail: action.detail, isLoading: false };
+
+    case 'FETCH_FAILED':
+      return { ...prevState, isLoading: false, error: action.error };
+
+    default:
+      return prevState;
+  }
+};
+
+export function useDetail(showId) {
+  const [state, dispatch] = useReducer(reducer, {
+    detail: null,
+    isLoading: true,
+    error: null,
+  });
+  useEffect(() => {
+    let isMounted = true;
+    apiGet(`/shows/${showId}?embed[]=seasons&embed[]=cast`)
+      .then(results => {
+        if (isMounted) {
+          dispatch({ type: 'FETCH_SUCCESS', detail: results });
+          // setDetail(results);
+          // setisLoading(false);
+        }
+      })
+      .catch(err => {
+        if (isMounted) {
+          dispatch({ type: 'FETCH_FAILED', error: err.message });
+          // setError(err.message);
+          // setisLoading(false);
+        }
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, [showId]);
+  return state;
 }
