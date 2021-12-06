@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { useState, useEffect } from 'react/cjs/react.development';
+
+import React, { useState, useEffect } from 'react';
 import { apiGet } from '../../api-config/config';
 import { useShows } from '../../custom-hooks/customhooks';
 import MainPageLayout from '../MainPageLayout';
