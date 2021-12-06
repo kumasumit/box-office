@@ -1,5 +1,5 @@
-import { useReducer, useEffect, useState } from 'react';
-import { useCallback } from 'react/cjs/react.development';
+import { useReducer, useEffect, useState, useCallback } from 'react';
+
 import { apiGet } from '../api-config/config';
 
 function usePersistedReducer(reducer, initialState, key) {
@@ -45,6 +45,7 @@ export function useLastQuery(key = 'lastQuery') {
     },
     [key]
   );
+
   return [input, setPersistedInput];
 }
 
