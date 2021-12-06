@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useState } from 'react';
+import { useCallback } from 'react/cjs/react.development';
 import { apiGet } from '../api-config/config';
 
 function usePersistedReducer(reducer, initialState, key) {
@@ -37,11 +38,13 @@ export function useLastQuery(key = 'lastQuery') {
     return persisted ? JSON.parse(persisted) : '';
   });
 
-  const setPersistedInput = newState => {
-    setInput(newState);
-    sessionStorage.setItem(key, JSON.stringify(newState));
-  };
-
+  const setPersistedInput = useCallback(
+    newState => {
+      setInput(newState);
+      sessionStorage.setItem(key, JSON.stringify(newState));
+    },
+    [key]
+  );
   return [input, setPersistedInput];
 }
 
