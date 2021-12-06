@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { useCallback } from 'react/cjs/react.development';
+import React, { useCallback } from 'react';
+
 import ShowCard from './ShowCard';
 
 import IMAGE_NOT_FOUND from '../../images/not-found.png';
